@@ -16,7 +16,7 @@ public class TerminalMenu {
     @SuppressWarnings("methodlength")
     public void runMenu() throws IOException, InterruptedException {
         boolean keepGoing = true;
-        String command = null;
+        String command;
 
         gameStarter = new TerminalGame();
         gameStarter.start();
@@ -154,10 +154,10 @@ public class TerminalMenu {
 
     private void addUsersAndScore() {
         System.out.println("Enter Name");
-        String name = "";
+        String name;
         name = input.next();
         System.out.println("Enter Score");
-        int score = 0;
+        int score;
         score = Integer.parseInt(input.next());
         Profile user = new Profile(name, score);
         profiles.addProfile(user);
@@ -165,11 +165,11 @@ public class TerminalMenu {
 
     private void challenge() {
         System.out.println("Would you like to challenge a player? (Yes/No)");
-        String selection = "";
+        String selection;
         selection = input.next();
         if (selection.equals("yes") || selection.equals("Yes")) {
             System.out.println("Who would you like to challenge? (enter player name)");
-            String name = "";
+            String name;
             name = input.next();
             profiles.setChallenger(name);
         }
