@@ -16,7 +16,7 @@ public class TerminalGame {
     private GameState gameState;
     private Screen screen;
 
-    
+    // starts the game
     public void start() throws IOException, InterruptedException {
         screen = new DefaultTerminalFactory().createScreen();
         screen.startScreen();
@@ -26,6 +26,7 @@ public class TerminalGame {
         beginTicks();
     }
 
+    // inspo taken from https://github.students.cs.ubc.ca/CPSC210/SnakeConsole-Lanterna.git
     private void beginTicks() throws IOException, InterruptedException {
         while (!gameState.isEndedGame()) {
             tick();
@@ -34,6 +35,7 @@ public class TerminalGame {
 
     }
 
+    // inspo taken from https://github.students.cs.ubc.ca/CPSC210/SnakeConsole-Lanterna.git
     private void tick() throws IOException {
         handleUserInput();
 
@@ -45,11 +47,13 @@ public class TerminalGame {
 
     }
 
+    // effects: draws the piece and platform onto screen
     private void render() {
         drawPiece(gameState.getPiece());
         drawPlatform(gameState.getPlatform());
     }
 
+    // effects: draws the piece onto screen
     private void drawPiece(Piece p) {
         TextColor c = TextColor.ANSI.RED;
         int px = p.getPosX();
@@ -57,6 +61,7 @@ public class TerminalGame {
         drawCharacter('o', c, px, py);
     }
 
+    // effects: draws the platform onto screen
     private void drawPlatform(Platform pl) {
         TextColor c = TextColor.ANSI.GREEN;
         int px = pl.getPosX();
@@ -64,12 +69,16 @@ public class TerminalGame {
         drawCharacter('_', c, px, py);
     }
 
+    // draws any given character onto screen at given x and y position
+    // inspo taken from https://github.students.cs.ubc.ca/CPSC210/SnakeConsole-Lanterna.git
     private void drawCharacter(char c, TextColor color, int x, int y) {
         TextGraphics text = screen.newTextGraphics();
         text.setForegroundColor(color);
         text.putString(x, y + 1, String.valueOf(c));
     }
 
+    // Effects: checks for user input, controls piece accordingly
+    // inspo taken from https://github.students.cs.ubc.ca/CPSC210/SnakeConsole-Lanterna.git
     private void handleUserInput() throws IOException {
         KeyStroke stroke = screen.pollInput();
 
@@ -85,7 +94,5 @@ public class TerminalGame {
     public int getScore() {
         return gameState.getScore();
     }
-
-
 
 }

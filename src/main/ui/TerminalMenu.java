@@ -12,7 +12,7 @@ public class TerminalMenu {
     private ProfileManager profiles;
     private TerminalGame gameStarter;
 
-    // starts the program
+    // starts the menu ui
     @SuppressWarnings("methodlength")
     public void runMenu() throws IOException, InterruptedException {
         boolean keepGoing = true;
@@ -53,13 +53,14 @@ public class TerminalMenu {
     }
 
 
-    // initializes the list of profiles
+    // effects: initializes the list of profiles
     private void init() {
         profiles = new ProfileManager();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
     }
 
+    // effects: displays the input options available to a player
     private void displayMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\ta -> Add Most Recent Score");
@@ -71,6 +72,7 @@ public class TerminalMenu {
         System.out.println("\tq -> Quit");
     }
 
+    // effects: does the appropriate command according to the input
     private void processCommand(String command) {
         if (command.equals("a")) {
             addUsers();
@@ -85,6 +87,7 @@ public class TerminalMenu {
         }
     }
 
+    // effects: takes the names of two players and compares their scores
     private void compareScores() {
         System.out.println("Enter name of player to compare with");
         String selection1;
@@ -97,6 +100,7 @@ public class TerminalMenu {
 
     }
 
+    // effects: displays a different message depending on the scores of the profiles
     public void compareProfiles(Profile p1, Profile p2) {
         if (p2.getScore() < (p1.getScore() - 2)) {
             System.out.println("Player 2's got a ways to go!");
@@ -107,6 +111,7 @@ public class TerminalMenu {
         }
     }
 
+    // effects: does the calculation for the comparison
     public void makeComparison(String n1, String n2) {
         Profile p1 = null;
         Profile p2 = null;
@@ -123,6 +128,7 @@ public class TerminalMenu {
 
     }
 
+    // effects: shows a list of player profiles. prints empty if profiles is empty
     private void viewPlayers() {
         if (profiles.isEmpty()) {
             System.out.println("Empty");

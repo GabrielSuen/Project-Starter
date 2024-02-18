@@ -37,6 +37,7 @@ public class GameState {
         checkGameOver();
     }
 
+    // effects: handles user input, A = left, B = right
     public void controlPiece(int key) {
         if (key == KeyEvent.VK_D) {
             piece.moveRight();
@@ -45,6 +46,7 @@ public class GameState {
         }
     }
 
+    // effects: checks if platform has collided with piece; adds 1 to score and resets piece to top of screen
     private void checkCollisions() {
         if (platform.hasCollided(piece)) {
             platform.move();
