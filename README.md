@@ -36,8 +36,8 @@ As a user I want to...
 
 - Be able to add new save profiles with a name and the recorded 
 score (point count) 
-- Be able to view a list of profiles and compare them on how likely
-one player is to overtake the others score.
+- Be able to compare how likely one player is to overtake another score
 - Be able to choose a profile to "challenge", setting up their score
 in the top left of the game screen. Once the player passes that
 score, their score lights up
+- Be able to view a list of profiles with their high score and name
