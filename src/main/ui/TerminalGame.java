@@ -1,9 +1,7 @@
 package ui;
 
-import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -17,16 +15,13 @@ public class TerminalGame {
 
     private GameState gameState;
     private Screen screen;
-    private WindowBasedTextGUI endGui;
+
     
     public void start() throws IOException, InterruptedException {
         screen = new DefaultTerminalFactory().createScreen();
         screen.startScreen();
 
-        TerminalSize terminalSize = new TerminalSize(gameState.WIDTH, gameState.HEIGHT);
-
-        gameState = new GameState(terminalSize.getColumns() - 1, terminalSize.getRows());
-
+        gameState = new GameState();
 
         beginTicks();
     }
@@ -62,14 +57,14 @@ public class TerminalGame {
         TextColor c = TextColor.ANSI.RED;
         int px = p.getPosX();
         int py = p.getPosY();
-        drawCharacter('█', c, px, py);
+        drawCharacter('o', c, px, py);
     }
 
     private void drawPlatform(Platform pl) {
         TextColor c = TextColor.ANSI.GREEN;
         int px = pl.getPosX();
         int py = pl.getPosY();
-        drawCharacter('█', c, px, py);
+        drawCharacter('_', c, px, py);
     }
 
     private void drawCharacter(char c, TextColor color, int x, int y) {

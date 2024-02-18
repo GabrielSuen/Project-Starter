@@ -16,9 +16,7 @@ public class GameState {
     private Piece piece;
     private Platform platform;
 
-    public GameState(int width, int height) {
-        width = WIDTH;
-        height = HEIGHT;
+    public GameState() {
         setUp();
     }
 

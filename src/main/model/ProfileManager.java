@@ -27,14 +27,13 @@ public class ProfileManager {
         return profiles.isEmpty();
     }
 
-    public Profile setChallenger(String name) {
+    public void setChallenger(String name) {
         for (Profile p : profiles) {
-            if (name.equals(name)) {
+            if (p.getName().equals(name)) {
                 challenger = p;
-                return challenger;
+                return;
             }
         }
-        return null;
     }
 
     public Profile getChallenger() {

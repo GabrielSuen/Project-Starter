@@ -1,19 +1,14 @@
 package model;
 
-import java.awt.Color;
 
 public class Piece {
 
-//    public static int WIDTH = 8;
-//    public static int HEIGHT = 8;
-//    public static final int SIZE_X = 15;
-//    public static final int SIZE_Y = 8;
+
     public static final int DY = 1;
-//    public static final Color COLOR = new Color(250, 128, 20);
 
     private int posX;
     private int posY;
-    private int dy; // will use later when more levels are implemented
+//  private int dy; // will use later when more levels are implemented
 
     public Piece(int x, int y) {
         this.posX = x;

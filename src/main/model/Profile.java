@@ -12,8 +12,7 @@ public class Profile {
     }
 
     public String showProfile() {
-        String viewable = "Player:" + name + " Score:" + score;
-        return viewable;
+        return "Player:" + name + " Score:" + score;
     }
 
 
