@@ -13,7 +13,7 @@ public class Profile {
 
     // shows the name and score of the profile
     public String showProfile() {
-        return "Player:" + name + " Score:" + score;
+        return "Player: " + name + " Score: " + score;
     }
 
 

@@ -31,7 +31,6 @@ public class ProfileManager {
         for (Profile p : profiles) {
             if (p.getName().equals(name)) {
                 challenger = p;
-                return;
             }
         }
     }

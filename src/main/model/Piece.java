@@ -23,6 +23,14 @@ public class Piece {
         return posY;
     }
 
+    public void setPosY(int y) {
+        posY = y;
+    }
+
+    public void setPosX(int x) {
+        posX = x;
+    }
+
     public void moveDown() {
         posY = posY + DY;
     }

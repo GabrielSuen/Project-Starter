@@ -23,6 +23,14 @@ public class Platform {
         return posY;
     }
 
+    public void setPosY(int y) {
+        posY = y;
+    }
+
+    public void setPosX(int x) {
+        posX = x;
+    }
+
     // moves the platform to a random spot on the bottom half of the screen
     public void move() {
         posX = RND.nextInt(GameState.WIDTH);
