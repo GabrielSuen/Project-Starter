@@ -3,8 +3,8 @@ package model;
 
 public class Profile {
 
-    private int score;
-    private String name;
+    private final int score;
+    private final String name;
 
     public Profile(String name, int score) {
         this.name = name;

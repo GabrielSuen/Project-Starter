@@ -32,7 +32,6 @@ public class TerminalGame {
             Thread.sleep(1000L / GameState.TICKS_PER_SECOND);
         }
 
-        //System.exit(0);
     }
 
     private void tick() throws IOException {
@@ -40,12 +39,10 @@ public class TerminalGame {
 
         gameState.update();
 
-     //   screen.setCursorPosition(new TerminalPosition(0, 0));
         screen.clear();
         render();
         screen.refresh();
 
-     //   screen.setCursorPosition(new TerminalPosition(screen.getTerminalSize().getColumns() - 1, 0));
     }
 
     private void render() {

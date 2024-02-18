@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class ProfileManager {
 
-    private List<Profile> profiles;
+    private final List<Profile> profiles;
     private Profile challenger;
 
     // constructs a profile manager with no profiles
