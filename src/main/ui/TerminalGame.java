@@ -35,6 +35,7 @@ public class TerminalGame {
 
     }
 
+    // progresses the game
     // inspo taken from https://github.students.cs.ubc.ca/CPSC210/SnakeConsole-Lanterna.git
     private void tick() throws IOException {
         handleUserInput();
