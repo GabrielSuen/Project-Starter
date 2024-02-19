@@ -4,8 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.awt.event.KeyEvent;
 
-import static java.awt.event.KeyEvent.VK_A;
-import static java.awt.event.KeyEvent.VK_D;
+import static java.awt.event.KeyEvent.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -61,6 +60,18 @@ public class GameStateTest {
         assertEquals(gs.getPiece().getPosX(), 10);
     }
 
+    @Test
+    void testControlPieceLeft() {
+        gs.controlPiece(VK_A);
+        assertEquals(gs.getPiece().getPosX(), 9);
+        assertEquals(gs.getPiece().getPosY(), 0);
+    }
 
+    @Test
+    void testControlPieceNonInput() {
+        gs.controlPiece(VK_L);
+        assertEquals(gs.getPiece().getPosX(), 10);
+        assertEquals(gs.getPiece().getPosY(), 0);
+    }
 
 }
