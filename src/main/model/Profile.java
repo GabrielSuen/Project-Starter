@@ -11,7 +11,7 @@ public class Profile {
         this.score = score;
     }
 
-    // shows the name and score of the profile
+    // effects: shows the name and score of the profile
     public String showProfile() {
         return "Player: " + name + " Score: " + score;
     }

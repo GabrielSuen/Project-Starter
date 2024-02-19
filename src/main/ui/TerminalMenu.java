@@ -75,7 +75,7 @@ public class TerminalMenu {
     // effects: does the appropriate command according to the input
     private void processCommand(String command) {
         if (command.equals("a")) {
-            addUsers();
+            addMostRecentUser();
         } else if (command.equals("v")) {
             viewPlayers();
         } else if (command.equals("b")) {
@@ -136,6 +136,7 @@ public class TerminalMenu {
         viewProfiles();
     }
 
+    // effects: prints out the name and score of each profile
     public void viewProfiles() {
         for (Profile p : profiles.getProfiles()) {
             System.out.println(p.showProfile());
@@ -144,7 +145,8 @@ public class TerminalMenu {
 
 
 
-    private void addUsers() {
+    // option to add most recent score as a user profile
+    private void addMostRecentUser() {
         System.out.println("Enter Name");
         String selection;
         selection = input.next();
@@ -152,6 +154,7 @@ public class TerminalMenu {
         profiles.addProfile(user);
     }
 
+    // option to add a user with name and score
     private void addUsersAndScore() {
         System.out.println("Enter Name");
         String name;
@@ -163,6 +166,7 @@ public class TerminalMenu {
         profiles.addProfile(user);
     }
 
+    // option to challenge a player, prints a performance report based on the challengers score
     private void challenge() {
         System.out.println("Would you like to challenge a player? (Yes/No)");
         String selection;

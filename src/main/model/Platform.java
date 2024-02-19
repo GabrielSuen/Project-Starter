@@ -15,6 +15,18 @@ public class Platform {
         this.posY = y;
     }
 
+    // modifies: this
+    // moves the platform to a random spot on the bottom half of the screen
+    public void move() {
+        posX = RND.nextInt(GameState.WIDTH);
+        posY = RND.nextInt(GameState.HEIGHT / 2) + 12;
+    }
+
+    // Effects: returns if the platform has come in contact with Piece p
+    public boolean hasCollided(Piece p) {
+        return p.getPosX() == this.getPosX() && p.getPosY() == this.getPosY();
+    }
+
     public int getPosX() {
         return posX;
     }
@@ -29,17 +41,6 @@ public class Platform {
 
     public void setPosX(int x) {
         posX = x;
-    }
-
-    // moves the platform to a random spot on the bottom half of the screen
-    public void move() {
-        posX = RND.nextInt(GameState.WIDTH);
-        posY = RND.nextInt(GameState.HEIGHT / 2) + 12;
-    }
-
-    // Effects: returns if the platform has come in contact with Piece p
-    public boolean hasCollided(Piece p) {
-        return p.getPosX() == this.getPosX() && p.getPosY() == this.getPosY();
     }
 
 }

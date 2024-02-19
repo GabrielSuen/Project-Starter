@@ -8,7 +8,7 @@ public class Piece {
 
     private int posX;
     private int posY;
-//  private int dy; // will use later when more levels are implemented
+//  private int dy;  will use later when more levels are implemented
 
     public Piece(int x, int y) {
         this.posX = x;
@@ -31,12 +31,14 @@ public class Piece {
         posX = x;
     }
 
+    // modifies: this
+    // effects: moves the piece down by DY(1)
     public void moveDown() {
         posY = posY + DY;
     }
 
     // modifies: this
-    // moves piece left by 1 position
+    // effects: moves piece left by 1 position
     public void moveLeft() {
         posX = posX - 1;
         handleBoundary();

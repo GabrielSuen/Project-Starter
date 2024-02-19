@@ -31,4 +31,10 @@ public class PlatformTest {
         assertTrue(platform.hasCollided(piece));
     }
 
+    @Test
+    void testHasNotCollided() {
+        piece = new Piece(GameState.WIDTH / 2,14);
+        assertFalse(platform.hasCollided(piece));
+    }
+
 }

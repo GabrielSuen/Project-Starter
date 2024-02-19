@@ -13,7 +13,7 @@ public class ProfileManager {
         this.profiles = new ArrayList<>();
     }
 
-    // adds the given profile to list
+    // effects: adds the given profile to list
     public void addProfile(Profile profile) {
         profiles.add(profile);
     }
@@ -23,10 +23,13 @@ public class ProfileManager {
         return profiles;
     }
 
+    // effects: checks if the list of profiles is empty
     public boolean isEmpty() {
         return profiles.isEmpty();
     }
 
+    // modifies: this
+    // effects: sets the challenger to the corresponding string. null if none is found
     public void setChallenger(String name) {
         for (Profile p : profiles) {
             if (p.getName().equals(name)) {
