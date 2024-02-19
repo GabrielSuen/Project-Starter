@@ -19,4 +19,14 @@ public class ProfileTest {
         assertEquals("Player: joe Score: 0", pr.showProfile());
     }
 
+    @Test
+    void testGetScore() {
+        assertEquals(0, pr.getScore());
+    }
+
+    @Test
+    void testGetScoreAdded() {
+        assertEquals(0, pr.getScore());
+    }
+
 }
