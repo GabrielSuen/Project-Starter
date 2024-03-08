@@ -198,6 +198,7 @@ public class TerminalMenu {
         return profiles.getChallenger();
     }
 
+    // EFFECTS: saves the profile manager to file
     private void saveProfiles() {
         try {
             jsonWriter.open();
@@ -209,6 +210,8 @@ public class TerminalMenu {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads profile manager from file
     private void loadProfiles() {
         try {
             profiles = jsonReader.read();
