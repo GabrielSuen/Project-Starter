@@ -3,14 +3,21 @@ package ui;
 import model.Profile;
 import model.ProfileManager;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 public class TerminalMenu {
 
+    private static final String JSON_STORE = "./data/profiles.json";
     private Scanner input;
     private ProfileManager profiles;
     private TerminalGame gameStarter;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+
 
     // starts the menu ui
     @SuppressWarnings("methodlength")
@@ -55,9 +62,11 @@ public class TerminalMenu {
 
     // effects: initializes the list of profiles
     private void init() {
-        profiles = new ProfileManager();
+        profiles = new ProfileManager("New Profile Manager");
         input = new Scanner(System.in);
         input.useDelimiter("\n");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
     // effects: displays the input options available to a player
@@ -68,6 +77,8 @@ public class TerminalMenu {
         System.out.println("\tc -> Compare Scores");
         System.out.println("\tv -> View Leaderboard");
         System.out.println("\tx -> Set Challenger");
+        System.out.println("\ts -> Save Profiles");
+        System.out.println("\tl -> Load Profiles");
         System.out.println("\tp -> Play Again");
         System.out.println("\tq -> Quit");
     }
@@ -84,6 +95,10 @@ public class TerminalMenu {
             compareScores();
         } else if (command.equals("x")) {
             challenge();
+        } else if (command.equals("s")) {
+            saveProfiles();
+        } else if (command.equals("l")) {
+            loadProfiles();
         }
     }
 
@@ -181,6 +196,26 @@ public class TerminalMenu {
 
     private Profile getChallenger() {
         return profiles.getChallenger();
+    }
+
+    private void saveProfiles() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(profiles);
+            jsonWriter.close();
+            System.out.println("Saved " + profiles.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    private void loadProfiles() {
+        try {
+            profiles = jsonReader.read();
+            System.out.println("Loaded " + profiles.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 
 }

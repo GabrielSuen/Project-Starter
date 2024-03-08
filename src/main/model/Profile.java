@@ -1,7 +1,10 @@
 package model;
 
 
-public class Profile {
+import org.json.JSONObject;
+import persistence.Writable;
+
+public class Profile implements Writable {
 
     private final int score;
     private final String name;
@@ -24,6 +27,14 @@ public class Profile {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("score", score);
+        return json;
     }
 
 }

@@ -14,7 +14,7 @@ public class ProfileManagerTest {
 
     @BeforeEach
     void runBefore() {
-        pm = new ProfileManager();
+        pm = new ProfileManager("New Profile Manager");
         p1 = new Profile("joe", 1);
         p2 = new Profile("moe", 2);
         p3 = new Profile("chloe", 3);

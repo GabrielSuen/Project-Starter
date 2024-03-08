@@ -1,15 +1,22 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class ProfileManager {
+public class ProfileManager implements Writable {
 
     private final List<Profile> profiles;
     private Profile challenger;
+    private String name;
 
     // constructs a profile manager with no profiles
-    public ProfileManager() {
+    public ProfileManager(String name) {
+        this.name = name;
         this.profiles = new ArrayList<>();
     }
 
@@ -38,7 +45,38 @@ public class ProfileManager {
         }
     }
 
+    // EFFECTS: returns an unmodifiable list of profiles in this workroom
+    public List<Profile> getProfilesJson() {
+        return Collections.unmodifiableList(profiles);
+    }
+
+    public int numProfiles() {
+        return profiles.size();
+    }
+
     public Profile getChallenger() {
         return challenger;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("profiles", profilesToJson());
+        return json;
+    }
+
+    private JSONArray profilesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Profile p : profiles) {
+            jsonArray.put(p.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    public String getName() {
+        return name;
     }
 }

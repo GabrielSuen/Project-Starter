@@ -1,0 +1,13 @@
+{
+    "name": "New Profile Manager",
+    "profiles": [
+        {
+            "score": 1,
+            "name": "Joe"
+        },
+        {
+            "score": 2,
+            "name": "Bill"
+        }
+    ]
+}

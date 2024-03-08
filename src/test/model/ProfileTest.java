@@ -8,10 +8,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ProfileTest {
 
     private Profile pr;
+    private Profile pr2;
 
     @BeforeEach
     void runBefore() {
         pr = new Profile("joe", 0);
+        pr2 = new Profile("moe", 100);
     }
 
     @Test
@@ -26,7 +28,7 @@ public class ProfileTest {
 
     @Test
     void testGetScoreAdded() {
-        assertEquals(0, pr.getScore());
+        assertEquals(100, pr2.getScore());
     }
 
 }
