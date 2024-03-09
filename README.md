@@ -41,3 +41,5 @@ score (point count)
 in the top left of the game screen. Once the player passes that
 score, their score lights up
 - Be able to view a list of profiles with their high score and name
+- Be able to save the current leaderboard consisting of player names and scores
+- Be able to load the saved leaderboard from file
