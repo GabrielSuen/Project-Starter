@@ -8,6 +8,7 @@ public class Piece {
 
     private int posX;
     private int posY;
+    private boolean dir;
 //  private int dy;  will use later when more levels are implemented
 
     public Piece(int x, int y) {
@@ -40,14 +41,14 @@ public class Piece {
     // modifies: this
     // effects: moves piece left by 1 position
     public void moveLeft() {
-        posX = posX - 1;
+        dir = false;
         handleBoundary();
     }
 
     // modifies: this
     // moves piece right by 1 position
     public void moveRight() {
-        posX = posX + 1;
+        dir = true;
         handleBoundary();
     }
 
@@ -71,4 +72,11 @@ public class Piece {
     }
 
 
+    public void move() {
+        if (dir) {
+            posX = posX + 1;
+        } else {
+            posX = posX - 1;
+        }
+    }
 }

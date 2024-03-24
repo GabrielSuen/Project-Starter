@@ -1,99 +1,81 @@
 package ui;
 
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
+
 import model.GameState;
 import model.Piece;
 import model.Platform;
+import java.awt.Color;
 
-import java.io.IOException;
+import java.awt.Graphics;
 
-public class TerminalGame {
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+public class TerminalGame extends JPanel {
 
     private GameState gameState;
-    private Screen screen;
 
-    // starts the game
-    public void start() throws IOException, InterruptedException {
-        screen = new DefaultTerminalFactory().createScreen();
-        screen.startScreen();
-
+    public TerminalGame() {
+        setSize(300, 400);
+        setBackground(Color.GRAY);
         gameState = new GameState();
-
-        beginTicks();
+        //addKeyListener(new KeyHandler());
     }
 
-    // inspo taken from https://github.students.cs.ubc.ca/CPSC210/SnakeConsole-Lanterna.git
-    private void beginTicks() throws IOException, InterruptedException {
-        while (!gameState.isEndedGame()) {
-            tick();
-            Thread.sleep(1000L / GameState.TICKS_PER_SECOND);
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        render(g);
+        if (gameState.isEndedGame()) {
+            System.exit(0);
         }
-
     }
 
-    // progresses the game
-    // inspo taken from https://github.students.cs.ubc.ca/CPSC210/SnakeConsole-Lanterna.git
-    private void tick() throws IOException {
-        handleUserInput();
+    public void addTimer() {
+        Timer t = new Timer(10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                    gameState.update();
+                    repaint();
+            }
+        });
 
-        gameState.update();
-
-        screen.clear();
-        render();
-        screen.refresh();
-
+        t.start();
     }
 
     // effects: draws the piece and platform onto screen
-    private void render() {
-        drawPiece(gameState.getPiece());
-        drawPlatform(gameState.getPlatform());
+    private void render(Graphics g) {
+        drawPiece(gameState.getPiece(), g);
+        drawPlatform(gameState.getPlatform(), g);
     }
 
     // effects: draws the piece onto screen
-    private void drawPiece(Piece p) {
-        TextColor c = TextColor.ANSI.RED;
+    private void drawPiece(Piece p, Graphics g) {
+        Color c = Color.red;
         int px = p.getPosX();
         int py = p.getPosY();
-        drawCharacter('o', c, px, py);
+        g.setColor(c);
+        g.fillOval(px, py, 10, 10);
     }
 
     // effects: draws the platform onto screen
-    private void drawPlatform(Platform pl) {
-        TextColor c = TextColor.ANSI.GREEN;
+    private void drawPlatform(Platform pl, Graphics g) {
+        Color c = Color.green;
         int px = pl.getPosX();
         int py = pl.getPosY();
-        drawCharacter('_', c, px, py);
-    }
-
-    // draws any given character onto screen at given x and y position
-    // inspo taken from https://github.students.cs.ubc.ca/CPSC210/SnakeConsole-Lanterna.git
-    private void drawCharacter(char c, TextColor color, int x, int y) {
-        TextGraphics text = screen.newTextGraphics();
-        text.setForegroundColor(color);
-        text.putString(x, y + 1, String.valueOf(c));
-    }
-
-    // Effects: checks for user input, controls piece accordingly
-    // inspo taken from https://github.students.cs.ubc.ca/CPSC210/SnakeConsole-Lanterna.git
-    private void handleUserInput() throws IOException {
-        KeyStroke stroke = screen.pollInput();
-
-
-        if (stroke == null || stroke.getCharacter() == null) {
-            return;
-        }
-
-        char c = stroke.getCharacter();
-        gameState.controlPiece(c);
+        g.setColor(c);
+        g.fillRect(px, py, 20, 5);
     }
 
     public int getScore() {
         return gameState.getScore();
+    }
+
+    public GameState getGameState() {
+        return gameState;
     }
 
 }

@@ -6,58 +6,73 @@ import model.ProfileManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
-public class TerminalMenu {
+import java.awt.GridLayout;
+
+import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+
+public class TerminalMenu extends JFrame {
 
     private static final String JSON_STORE = "./data/profiles.json";
     private Scanner input;
     private ProfileManager profiles;
+    private TerminalGame gameStart;
     private TerminalGame gameStarter;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
+    private static final int WIDTH = 300;
+    private static final int HEIGHT = 400;
+
+
 
 
     // starts the menu ui
     @SuppressWarnings("methodlength")
-    public void runMenu() throws IOException, InterruptedException {
-        boolean keepGoing = true;
-        String command;
-
-        gameStarter = new TerminalGame();
-        gameStarter.start();
-
-        init();
-
-        while (keepGoing) {
-            displayMenu();
-            command = input.next();
-            command = command.toLowerCase();
-
-            if (command.equals("q")) {
-                keepGoing = false;
-            } else if (command.equals("p")) {
-                challenge();
-                Profile c = getChallenger();
-                gameStarter = new TerminalGame();
-                gameStarter.start();
-                if (getChallenger() != null) {
-                    if (gameStarter.getScore() > c.getScore()) {
-                        System.out.println("You beat your opponent");
-                    } else {
-                        System.out.println("You did not beat your opponent");
-                    }
-                } else {
-                    System.out.println("Thank you for playing!");
-                }
-            } else {
-                processCommand(command);
-            }
-        }
-        System.out.println("\nGoodbye!");
-        System.exit(0);
-    }
+//    public void runMenu() throws IOException, InterruptedException {
+//        boolean keepGoing = true;
+//        String command;
+//
+//        gameStarter = new TerminalGame();
+//
+//        init();
+//
+//        while (keepGoing) {
+//            displayMenu();
+//            command = input.next();
+//            command = command.toLowerCase();
+//
+//            if (command.equals("q")) {
+//                keepGoing = false;
+//            } else if (command.equals("p")) {
+//                challenge();
+//                Profile c = getChallenger();
+//                gameStarter = new TerminalGame();
+//                gameStarter.start();
+//                if (getChallenger() != null) {
+//                    if (gameStarter.getScore() > c.getScore()) {
+//                        System.out.println("You beat your opponent");
+//                    } else {
+//                        System.out.println("You did not beat your opponent");
+//                    }
+//                } else {
+//                    System.out.println("Thank you for playing!");
+//                }
+//            } else {
+//                processCommand(command);
+//            }
+//        }
+//        System.out.println("\nGoodbye!");
+//        System.exit(0);
+//    }
 
 
     // effects: initializes the list of profiles
@@ -159,7 +174,6 @@ public class TerminalMenu {
     }
 
 
-
     // option to add most recent score as a user profile
     private void addMostRecentUser() {
         System.out.println("Enter Name");
@@ -220,5 +234,6 @@ public class TerminalMenu {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
+
 
 }

@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.*;
 import java.util.Random;
 
 public class Platform {
@@ -19,12 +20,14 @@ public class Platform {
     // moves the platform to a random spot on the bottom half of the screen
     public void move() {
         posX = RND.nextInt(GameState.WIDTH);
-        posY = RND.nextInt(GameState.HEIGHT / 2) + 12;
+        posY = RND.nextInt(GameState.HEIGHT - 200) + 180;
     }
 
     // Effects: returns if the platform has come in contact with Piece p
     public boolean hasCollided(Piece p) {
-        return p.getPosX() == this.getPosX() && p.getPosY() == this.getPosY();
+        Rectangle platBoundingRect = new Rectangle(getPosX(), getPosY(), 20, 5);
+        Rectangle pieceBoundingRect = new Rectangle(p.getPosX(),  p.getPosY(), 10, 10);
+        return platBoundingRect.intersects(pieceBoundingRect);
     }
 
     public int getPosX() {

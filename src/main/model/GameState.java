@@ -5,11 +5,9 @@ import java.awt.event.KeyEvent;
 
 public class GameState {
 
-    public static final int HEIGHT = 20;
-    //public static int HEIGHT = 20;
-    public static final int WIDTH = 20;
+    public static final int HEIGHT = 400;
+    public static final int WIDTH = 300;
     public static final Random RND = new Random();
-    public static final int TICKS_PER_SECOND = 10;
 
     private boolean endedGame;
     private int score;
@@ -23,25 +21,27 @@ public class GameState {
     // sets up the game environment
     private void setUp() {
         piece = new Piece(WIDTH / 2, 0);
-        platform = new Platform(RND.nextInt(WIDTH), RND.nextInt(GameState.HEIGHT / 2) + 10);
+        platform = new Platform(RND.nextInt(WIDTH), RND.nextInt(GameState.HEIGHT - 200) + 180);
         endedGame = false;
         score = 0;
     }
+    //RND.nextInt(GameState.HEIGHT / 2) + 10)
 
     // Updates the game on clock tick
     // modifies: this
     // effects:  updates piece and platform
     public void update() {
         piece.moveDown();
+        piece.move();
         checkCollisions();
         checkGameOver();
     }
 
     // effects: handles user input, A = left, B = right
     public void controlPiece(int key) {
-        if (key == KeyEvent.VK_D) {
+        if (key == KeyEvent.VK_RIGHT) {
             piece.moveRight();
-        } else if (key == KeyEvent.VK_A) {
+        } else if (key == KeyEvent.VK_LEFT) {
             piece.moveLeft();
         }
     }
