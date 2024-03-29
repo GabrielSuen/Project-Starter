@@ -83,9 +83,9 @@ public class GameStateTest {
     @Test
     void lostGameTest() {
         gs.startGame();
-        gs.getPlatform().setPosY(400);
+        gs.getPiece().setPosY(399);
         gs.update();
-        assertEquals(false, gs.isEndedGame());
+        assertEquals(true, gs.isEndedGame());
 
     }
 

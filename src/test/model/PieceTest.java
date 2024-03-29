@@ -41,8 +41,8 @@ class PieceTest {
     @Test
     void testHandleBoundaryRight() {
         p3.moveRight();
-        p1.move();
-        assertEquals(200, p3.getPosX());
+        p3.move();
+        assertEquals(190, p3.getPosX());
     }
 
     @Test
