@@ -5,75 +5,160 @@ import model.ProfileManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
-import java.awt.GridLayout;
-
 import javax.swing.*;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
-public class TerminalMenu extends JFrame {
+// Represents the game menu ui
+public class TerminalMenu extends JPanel implements ActionListener {
 
     private static final String JSON_STORE = "./data/profiles.json";
     private Scanner input;
     private ProfileManager profiles;
-    private TerminalGame gameStart;
-    private TerminalGame gameStarter;
+    private ArrayList<String> namesAlreadyAdded;
+    private ArrayList<String> namesAlreadyChallenged;
+
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-    private static final int WIDTH = 300;
-    private static final int HEIGHT = 400;
+    private JButton addProfileButton;
+    private JButton submit;
+    private JButton viewProfilesButton;
+    private JButton save;
+    private JButton load;
+    private JButton setChallenger;
+    private JButton compare;
+    private JButton submit1;
 
+    private JComboBox dropDown;
+    private JComboBox compare1;
+    private JComboBox compare2;
 
+    private JTextField textFieldN;
+    private JTextField textFieldS;
 
+    private JLabel comparison;
 
-    // starts the menu ui
-    @SuppressWarnings("methodlength")
-//    public void runMenu() throws IOException, InterruptedException {
-//        boolean keepGoing = true;
-//        String command;
-//
-//        gameStarter = new TerminalGame();
-//
-//        init();
-//
-//        while (keepGoing) {
-//            displayMenu();
-//            command = input.next();
-//            command = command.toLowerCase();
-//
-//            if (command.equals("q")) {
-//                keepGoing = false;
-//            } else if (command.equals("p")) {
-//                challenge();
-//                Profile c = getChallenger();
-//                gameStarter = new TerminalGame();
-//                gameStarter.start();
-//                if (getChallenger() != null) {
-//                    if (gameStarter.getScore() > c.getScore()) {
-//                        System.out.println("You beat your opponent");
-//                    } else {
-//                        System.out.println("You did not beat your opponent");
-//                    }
-//                } else {
-//                    System.out.println("Thank you for playing!");
-//                }
-//            } else {
-//                processCommand(command);
-//            }
-//        }
-//        System.out.println("\nGoodbye!");
-//        System.exit(0);
-//    }
+    private JPanel leaderboard;
 
+    // Constructor, has all buttons and other visual aspects of the menu
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    public TerminalMenu() {
+
+        leaderboard = new JPanel();
+        leaderboard.setLayout(null);
+        leaderboard.setBackground(Color.WHITE);
+        leaderboard.setBounds(125, 80, 100, 200);
+        leaderboard.setVisible(false);
+
+        addProfileButton = new JButton("addP");
+        addProfileButton.addActionListener(this);
+        addProfileButton.setBounds(10, 10, 100, 30);
+        addProfileButton.setText("Add Profile");
+        addProfileButton.setVisible(true);
+
+        submit = new JButton("Submit");
+        submit.addActionListener(this);
+        submit.setBounds(250, 10, 70, 30);
+        submit.setText("Add");
+        submit.setVisible(false);
+
+        viewProfilesButton = new JButton("profiles");
+        viewProfilesButton.addActionListener(this);
+        viewProfilesButton.setBounds(10, 40, 100, 30);
+        viewProfilesButton.setText("Players");
+        viewProfilesButton.setVisible(true);
+
+        save = new JButton("save");
+        save.addActionListener(this);
+        save.setBounds(10, 70, 100, 30);
+        save.setText("Save");
+        save.setVisible(true);
+
+        load = new JButton("load");
+        load.addActionListener(this);
+        load.setBounds(10, 100, 100, 30);
+        load.setText("Load");
+        load.setVisible(true);
+
+        setChallenger = new JButton("setChallenger");
+        setChallenger.addActionListener(this);
+        setChallenger.setBounds(10, 130, 100, 30);
+        setChallenger.setText("Challenge");
+        setChallenger.setVisible(true);
+
+        namesAlreadyAdded = new ArrayList<String>();
+        dropDown = new JComboBox();
+        dropDown.setBounds(120, 130, 100, 30);
+        dropDown.addActionListener(this);
+        dropDown.setVisible(false);
+
+        namesAlreadyChallenged = new ArrayList<String>();
+        compare = new JButton("compare");
+        compare.addActionListener(this);
+        compare.setBounds(10, 160, 100, 30);
+        compare.setText("Compare");
+        compare.setVisible(true);
+
+        compare1 = new JComboBox();
+        compare1.setBounds(120, 160, 100, 30);
+        compare1.addActionListener(this);
+        compare1.setVisible(false);
+
+        compare2 = new JComboBox();
+        compare2.setBounds(120, 190, 100, 30);
+        compare2.addActionListener(this);
+        compare2.setVisible(false);
+
+        submit1 = new JButton("Submit1");
+        submit1.addActionListener(this);
+        submit1.setBounds(250, 160, 70, 30);
+        submit1.setText("Submit");
+        submit1.setVisible(false);
+
+        comparison = new JLabel();
+        comparison.setBounds(120, 210, 200, 30);
+        comparison.setForeground(Color.WHITE);
+        comparison.setVisible(false);
+
+        textFieldN = new JTextField();
+        textFieldN.setBounds(120, 10,120,30);
+        textFieldN.setText("Name");
+        textFieldN.setVisible(false);
+
+        textFieldS = new JTextField();
+        textFieldS.setBounds(120, 45,120,30);
+        textFieldS.setText("Score");
+        textFieldS.setVisible(false);
+
+        init();
+        setSize(720, 500);
+        setBackground(Color.BLACK);
+        setLayout(null);
+        this.add(leaderboard);
+        this.add(addProfileButton);
+        this.add(submit);
+        this.add(save);
+        this.add(load);
+        this.add(viewProfilesButton);
+        this.add(textFieldN);
+        this.add(textFieldS);
+        this.add(setChallenger);
+        this.add(dropDown);
+        this.add(compare);
+        this.add(compare1);
+        this.add(compare2);
+        this.add(submit1);
+        this.add(comparison);
+
+    }
 
     // effects: initializes the list of profiles
     private void init() {
@@ -84,60 +169,31 @@ public class TerminalMenu extends JFrame {
         jsonReader = new JsonReader(JSON_STORE);
     }
 
-    // effects: displays the input options available to a player
-    private void displayMenu() {
-        System.out.println("\nSelect from:");
-        System.out.println("\ta -> Add Most Recent Score");
-        System.out.println("\tb -> Add Another Score");
-        System.out.println("\tc -> Compare Scores");
-        System.out.println("\tv -> View Leaderboard");
-        System.out.println("\tx -> Set Challenger");
-        System.out.println("\ts -> Save Profiles");
-        System.out.println("\tl -> Load Profiles");
-        System.out.println("\tp -> Play Again");
-        System.out.println("\tq -> Quit");
-    }
-
-    // effects: does the appropriate command according to the input
-    private void processCommand(String command) {
-        if (command.equals("a")) {
-            addMostRecentUser();
-        } else if (command.equals("v")) {
-            viewPlayers();
-        } else if (command.equals("b")) {
-            addUsersAndScore();
-        } else if (command.equals("c")) {
-            compareScores();
-        } else if (command.equals("x")) {
-            challenge();
-        } else if (command.equals("s")) {
-            saveProfiles();
-        } else if (command.equals("l")) {
-            loadProfiles();
+    // modifies: this
+    // effects: displays the leaderboard as a JPanel with a list of names with scores
+    private void showLeaderboard() {
+        int y = 0;
+        for (Profile p: profiles.getProfiles()) {
+            JLabel temp = new JLabel();
+            temp.setText(p.getName() + ":" + p.getScore());
+            temp.setBounds(25, y, 50, 30);
+            leaderboard.add(temp);
+            y += 12;
         }
     }
 
-    // effects: takes the names of two players and compares their scores
-    private void compareScores() {
-        System.out.println("Enter name of player to compare with");
-        String selection1;
-        selection1 = input.next();
-        System.out.println("Enter name of player to compare with");
-        String selection2;
-        selection2 = input.next();
-
-        makeComparison(selection1, selection2);
-
-    }
-
+    // modifies: this
     // effects: displays a different message depending on the scores of the profiles
     public void compareProfiles(Profile p1, Profile p2) {
         if (p2.getScore() < (p1.getScore() - 2)) {
-            System.out.println("Player 2's got a ways to go!");
+            //System.out.println("Player 2's got a ways to go!");
+            comparison.setText("Player 2's got a ways to go!");
         } else if (p2.getScore() > (p1.getScore() + 2)) {
-            System.out.println("Player 2's leagues ahead!");
+            //System.out.println("Player 2's leagues ahead!");
+            comparison.setText("Player 2's leagues ahead!");
         } else {
-            System.out.println("They're neck and neck!");
+            //System.out.println("They're neck and neck!");
+            comparison.setText("They're neck and neck!");
         }
     }
 
@@ -156,60 +212,6 @@ public class TerminalMenu extends JFrame {
 
         compareProfiles(p1, p2);
 
-    }
-
-    // effects: shows a list of player profiles. prints empty if profiles is empty
-    private void viewPlayers() {
-        if (profiles.isEmpty()) {
-            System.out.println("Empty");
-        }
-        viewProfiles();
-    }
-
-    // effects: prints out the name and score of each profile
-    public void viewProfiles() {
-        for (Profile p : profiles.getProfiles()) {
-            System.out.println(p.showProfile());
-        }
-    }
-
-
-    // option to add most recent score as a user profile
-    private void addMostRecentUser() {
-        System.out.println("Enter Name");
-        String selection;
-        selection = input.next();
-        Profile user = new Profile(selection, gameStarter.getScore());
-        profiles.addProfile(user);
-    }
-
-    // option to add a user with name and score
-    private void addUsersAndScore() {
-        System.out.println("Enter Name");
-        String name;
-        name = input.next();
-        System.out.println("Enter Score");
-        int score;
-        score = Integer.parseInt(input.next());
-        Profile user = new Profile(name, score);
-        profiles.addProfile(user);
-    }
-
-    // option to challenge a player, prints a performance report based on the challengers score
-    private void challenge() {
-        System.out.println("Would you like to challenge a player? (Yes/No)");
-        String selection;
-        selection = input.next();
-        if (selection.equals("yes") || selection.equals("Yes")) {
-            System.out.println("Who would you like to challenge? (enter player name)");
-            String name;
-            name = input.next();
-            profiles.setChallenger(name);
-        }
-    }
-
-    private Profile getChallenger() {
-        return profiles.getChallenger();
     }
 
     // EFFECTS: saves the profile manager to file
@@ -236,4 +238,76 @@ public class TerminalMenu extends JFrame {
     }
 
 
+    // effects: handles each buttons function
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == addProfileButton) {
+            textFieldN.setVisible(true);
+            textFieldS.setVisible(true);
+            submit.setVisible(true);
+        }
+        if (e.getSource() == submit) {
+            try {
+                Profile user = new Profile(textFieldN.getText(), Integer.parseInt(textFieldS.getText()));
+                profiles.addProfile(user);
+            } catch (NumberFormatException exception) {
+                textFieldS.setBackground(Color.RED);
+            }
+            textFieldS.setText("Score");
+            textFieldN.setText("Name");
+            leaderboard.setVisible(false);
+        }
+        if (e.getSource() == viewProfilesButton) {
+            showLeaderboard();
+            leaderboard.setVisible(true);
+        }
+        if (e.getSource() == save) {
+            saveProfiles();
+        }
+        if (e.getSource() == load) {
+            loadProfiles();
+        }
+        if (e.getSource() == setChallenger) {
+            ArrayList<String> names = (ArrayList<String>) profiles.getProfileNames();
+            for (String n : names) {
+                if (!namesAlreadyAdded.contains(n)) {
+                    dropDown.addItem(n);
+                    namesAlreadyAdded.add(n);
+                }
+            }
+            dropDown.setVisible(true);
+        }
+        if (e.getSource() == dropDown) {
+            profiles.setChallenger((String) dropDown.getSelectedItem());
+            System.out.println(getChallenger().getName());
+        }
+        if (e.getSource() == compare) {
+            ArrayList<String> names = (ArrayList<String>) profiles.getProfileNames();
+            for (String n : names) {
+                if (!namesAlreadyChallenged.contains(n)) {
+                    compare1.addItem(n);
+                    compare2.addItem(n);
+                    namesAlreadyChallenged.add(n);
+                }
+            }
+            compare1.setVisible(true);
+            compare2.setVisible(true);
+            submit1.setVisible(true);
+        }
+        if (e.getSource() == submit1) {
+            if (compare1.getSelectedItem() != null && compare2.getSelectedItem() != null) {
+                makeComparison((String) compare1.getSelectedItem(), (String) compare2.getSelectedItem());
+                comparison.setVisible(true);
+            }
+        }
+    }
+
+    public ProfileManager getProfiles() {
+        return profiles;
+    }
+
+    public Profile getChallenger() {
+        return profiles.getChallenger();
+    }
 }

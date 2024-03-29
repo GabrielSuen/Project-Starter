@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 public class GameState {
 
     public static final int HEIGHT = 400;
-    public static final int WIDTH = 300;
+    public static final int WIDTH = 200;
     public static final Random RND = new Random();
 
     private boolean endedGame;
@@ -22,7 +22,7 @@ public class GameState {
     private void setUp() {
         piece = new Piece(WIDTH / 2, 0);
         platform = new Platform(RND.nextInt(WIDTH), RND.nextInt(GameState.HEIGHT - 200) + 180);
-        endedGame = false;
+        endedGame = true;
         score = 0;
     }
     //RND.nextInt(GameState.HEIGHT / 2) + 10)
@@ -64,6 +64,10 @@ public class GameState {
 
     public boolean isEndedGame() {
         return endedGame;
+    }
+
+    public void startGame() {
+        endedGame =  false;
     }
 
     public Piece getPiece() {

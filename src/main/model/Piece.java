@@ -42,14 +42,12 @@ public class Piece {
     // effects: moves piece left by 1 position
     public void moveLeft() {
         dir = false;
-        handleBoundary();
     }
 
     // modifies: this
     // moves piece right by 1 position
     public void moveRight() {
         dir = true;
-        handleBoundary();
     }
 
     // Constrains piece so that it doesn't travel off sides of screen
@@ -59,8 +57,8 @@ public class Piece {
     private void handleBoundary() {
         if (posX < 0) {
             posX = 0;
-        } else if (posX > GameState.WIDTH) {
-            posX = GameState.WIDTH;
+        } else if (posX > GameState.WIDTH - 10) {
+            posX = GameState.WIDTH - 10;
         }
     }
 
@@ -78,5 +76,6 @@ public class Piece {
         } else {
             posX = posX - 1;
         }
+        handleBoundary();
     }
 }

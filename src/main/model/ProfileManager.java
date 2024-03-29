@@ -30,6 +30,14 @@ public class ProfileManager implements Writable {
         return profiles;
     }
 
+    public List<String> getProfileNames() {
+        List<String> names = new ArrayList<>();
+        for (Profile p : profiles) {
+            names.add(p.getName());
+        }
+        return names;
+    }
+
     // effects: checks if the list of profiles is empty
     public boolean isEmpty() {
         return profiles.isEmpty();

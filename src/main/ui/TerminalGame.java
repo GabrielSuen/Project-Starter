@@ -1,49 +1,71 @@
 package ui;
 
 
+import com.googlecode.lanterna.terminal.Terminal;
 import model.GameState;
 import model.Piece;
 import model.Platform;
-import java.awt.Color;
 
-import java.awt.Graphics;
+import java.awt.*;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
-public class TerminalGame extends JPanel {
+// Represents the panel where the game will be played/displayed
+public class TerminalGame extends JPanel implements KeyListener {
 
     private GameState gameState;
+    private JLabel gameOverLbl;
+    private JLabel challengeResults;
+    private TerminalMenu menu;
 
-    public TerminalGame() {
-        setSize(300, 400);
+    // Constructor holds the labels associated with the game
+    public TerminalGame(TerminalMenu m) {
+        menu = m;
+        gameOverLbl = new JLabel();
+        gameOverLbl.setText("GAME OVER");
+        gameOverLbl.setHorizontalAlignment(JLabel.CENTER);
+        gameOverLbl.setVerticalAlignment(JLabel.CENTER);
+        gameOverLbl.setForeground(Color.WHITE);
+        gameOverLbl.setVisible(false);
+
+        challengeResults = new JLabel();
+        challengeResults.setHorizontalAlignment(JLabel.CENTER);
+        challengeResults.setVerticalAlignment(JLabel.BOTTOM);
+        challengeResults.setForeground(Color.WHITE);
+        challengeResults.setVisible(false);
+
+        setSize(200, 400);
+        setLayout(new BorderLayout());
         setBackground(Color.GRAY);
         gameState = new GameState();
-        //addKeyListener(new KeyHandler());
+        addKeyListener(this);
+        add(challengeResults, BorderLayout.SOUTH);
+        add(gameOverLbl,BorderLayout.CENTER);
     }
+
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         render(g);
         if (gameState.isEndedGame()) {
-            System.exit(0);
+            gameOverLbl.setVisible(true);
+            showChallengeResults();
         }
     }
 
-    public void addTimer() {
-        Timer t = new Timer(10, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                    gameState.update();
-                    repaint();
+    // modifies: this
+    // effects: alters the challenge results text to reflect the players performance
+    private void showChallengeResults() {
+        if (menu.getChallenger() != null) {
+            if (gameState.getScore() > menu.getChallenger().getScore()) {
+                challengeResults.setText("You beat " + menu.getChallenger().getName() + "!");
+            } else {
+                challengeResults.setText("You did not beat " + menu.getChallenger().getName());
             }
-        });
-
-        t.start();
+            challengeResults.setVisible(true);
+        }
     }
 
     // effects: draws the piece and platform onto screen
@@ -77,5 +99,26 @@ public class TerminalGame extends JPanel {
     public GameState getGameState() {
         return gameState;
     }
+
+    // starts the game
+    public void start() {
+        gameState.startGame();
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        gameState.controlPiece(e.getKeyCode());
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+
 
 }
