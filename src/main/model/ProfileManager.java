@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
+// Handles operations with player profiles
 public class ProfileManager implements Writable {
 
     private final List<Profile> profiles;

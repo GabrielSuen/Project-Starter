@@ -3,6 +3,7 @@ package model;
 import java.awt.*;
 import java.util.Random;
 
+// represents the object you should land on for points
 public class Platform {
 
     public static final Random RND = new Random();

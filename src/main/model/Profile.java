@@ -4,6 +4,7 @@ package model;
 import org.json.JSONObject;
 import persistence.Writable;
 
+// represents a player, has a score and name
 public class Profile implements Writable {
 
     private final int score;

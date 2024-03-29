@@ -1,15 +1,12 @@
 package model;
 
-
+// represents the falling object you control
 public class Piece {
 
-
     public static final int DY = 1;
-
     private int posX;
     private int posY;
     private boolean dir;
-//  private int dy;  will use later when more levels are implemented
 
     public Piece(int x, int y) {
         this.posX = x;
@@ -22,6 +19,10 @@ public class Piece {
 
     public int getPosY() {
         return posY;
+    }
+
+    public boolean getDirection() {
+        return dir;
     }
 
     public void setPosY(int y) {
@@ -39,13 +40,13 @@ public class Piece {
     }
 
     // modifies: this
-    // effects: moves piece left by 1 position
+    // effects: changes direction of piece to left
     public void moveLeft() {
         dir = false;
     }
 
     // modifies: this
-    // moves piece right by 1 position
+    // effects: changes direction of piece to right
     public void moveRight() {
         dir = true;
     }
@@ -69,7 +70,7 @@ public class Piece {
         this.posY = 0;
     }
 
-
+    // moves the piece left or right
     public void move() {
         if (dir) {
             posX = posX + 1;

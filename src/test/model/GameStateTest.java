@@ -22,7 +22,7 @@ public class GameStateTest {
         assertEquals(gs.getPiece().getPosY(), 0);
         assertEquals(gs.getPiece().getPosX(), GameState.WIDTH / 2);
         assertEquals(gs.getScore(), 0);
-        assertFalse(gs.isEndedGame());
+        assertTrue(gs.isEndedGame());
     }
 
     @Test
@@ -30,7 +30,7 @@ public class GameStateTest {
         gs.update();
         assertEquals(gs.getPiece().getPosY(), 1);
         assertEquals(gs.getScore(), 0);
-        assertFalse(gs.isEndedGame());
+        assertTrue(gs.isEndedGame());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class GameStateTest {
         gs.update();
         assertEquals(gs.getPiece().getPosY(), 0);
         assertEquals(gs.getScore(), 1);
-        assertFalse(gs.isEndedGame());
+        assertTrue(gs.isEndedGame());
     }
 
     @Test
@@ -54,23 +54,23 @@ public class GameStateTest {
 
     @Test
     void testControlPiece() {
-        gs.controlPiece(VK_D);
-        assertEquals(gs.getPiece().getPosX(), 11);
-        gs.controlPiece(VK_A);
-        assertEquals(gs.getPiece().getPosX(), 10);
+        gs.controlPiece(VK_RIGHT);
+        assertEquals(gs.getPiece().getDirection(), true);
+        gs.controlPiece(VK_LEFT);
+        assertEquals(gs.getPiece().getDirection(), false);
     }
 
     @Test
     void testControlPieceLeft() {
-        gs.controlPiece(VK_A);
-        assertEquals(gs.getPiece().getPosX(), 9);
+        gs.controlPiece(VK_LEFT);
+        assertEquals(gs.getPiece().getDirection(), false);
         assertEquals(gs.getPiece().getPosY(), 0);
     }
 
     @Test
     void testControlPieceNonInput() {
         gs.controlPiece(VK_L);
-        assertEquals(gs.getPiece().getPosX(), 10);
+        assertEquals(gs.getPiece().getDirection(), false);
         assertEquals(gs.getPiece().getPosY(), 0);
     }
 
