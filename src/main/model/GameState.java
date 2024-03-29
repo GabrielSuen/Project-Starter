@@ -67,7 +67,7 @@ public class GameState {
     }
 
     public void startGame() {
-        endedGame =  false;
+        endedGame = false;
     }
 
     public Piece getPiece() {

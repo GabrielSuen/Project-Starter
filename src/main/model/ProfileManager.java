@@ -31,6 +31,7 @@ public class ProfileManager implements Writable {
         return profiles;
     }
 
+    // gets the names of all profiles in profiles
     public List<String> getProfileNames() {
         List<String> names = new ArrayList<>();
         for (Profile p : profiles) {

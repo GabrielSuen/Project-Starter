@@ -44,4 +44,13 @@ public class ProfileManagerTest {
         assertEquals(p2, pm.getChallenger());
     }
 
+    @Test
+    void getProfileNamesTest() {
+        pm.addProfile(p1);
+        pm.addProfile(p2);
+        pm.addProfile(p3);
+        assertEquals(3, pm.getProfileNames().size());
+        assertEquals("joe", pm.getProfileNames().get(0));
+    }
+
 }

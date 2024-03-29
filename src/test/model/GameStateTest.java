@@ -74,4 +74,19 @@ public class GameStateTest {
         assertEquals(gs.getPiece().getPosY(), 0);
     }
 
+    @Test
+    void isGameOverTest() {
+        gs.startGame();
+        assertEquals(false, gs.isEndedGame());
+    }
+
+    @Test
+    void lostGameTest() {
+        gs.startGame();
+        gs.getPlatform().setPosY(400);
+        gs.update();
+        assertEquals(false, gs.isEndedGame());
+
+    }
+
 }
