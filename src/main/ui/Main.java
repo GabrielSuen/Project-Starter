@@ -5,7 +5,8 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        GameFull starter = new GameFull();
+        AppFull starter = new AppFull();
+
 
     }
 }

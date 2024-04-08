@@ -6,7 +6,6 @@ import model.ProfileManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -18,10 +17,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 // Represents the game menu ui
-public class TerminalMenu extends JPanel implements ActionListener {
+public class MenuPanel extends JPanel implements ActionListener {
 
     private static final String JSON_STORE = "./data/profiles.json";
-    private Scanner input;
     private ProfileManager profiles;
     private ArrayList<String> namesAlreadyAdded;
     private ArrayList<String> namesAlreadyChallenged;
@@ -50,7 +48,7 @@ public class TerminalMenu extends JPanel implements ActionListener {
 
     // Constructor, has all buttons and other visual aspects of the menu
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
-    public TerminalMenu() {
+    public MenuPanel() {
 
         leaderboard = new JPanel();
         leaderboard.setLayout(null);
@@ -163,8 +161,6 @@ public class TerminalMenu extends JPanel implements ActionListener {
     // effects: initializes the list of profiles
     private void init() {
         profiles = new ProfileManager("New Profile Manager");
-        input = new Scanner(System.in);
-        input.useDelimiter("\n");
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
     }
@@ -180,38 +176,6 @@ public class TerminalMenu extends JPanel implements ActionListener {
             leaderboard.add(temp);
             y += 12;
         }
-    }
-
-    // modifies: this
-    // effects: displays a different message depending on the scores of the profiles
-    public void compareProfiles(Profile p1, Profile p2) {
-        if (p2.getScore() < (p1.getScore() - 2)) {
-            //System.out.println("Player 2's got a ways to go!");
-            comparison.setText("Player 2's got a ways to go!");
-        } else if (p2.getScore() > (p1.getScore() + 2)) {
-            //System.out.println("Player 2's leagues ahead!");
-            comparison.setText("Player 2's leagues ahead!");
-        } else {
-            //System.out.println("They're neck and neck!");
-            comparison.setText("They're neck and neck!");
-        }
-    }
-
-    // effects: does the calculation for the comparison
-    public void makeComparison(String n1, String n2) {
-        Profile p1 = null;
-        Profile p2 = null;
-        for (Profile p : profiles.getProfiles()) {
-            if (n1.equals(p.getName())) {
-                p1 = p;
-            }
-            if (n2.equals(p.getName())) {
-                p2 = p;
-            }
-        }
-
-        compareProfiles(p1, p2);
-
     }
 
     // EFFECTS: saves the profile manager to file
@@ -296,8 +260,11 @@ public class TerminalMenu extends JPanel implements ActionListener {
             submit1.setVisible(true);
         }
         if (e.getSource() == submit1) {
-            if (compare1.getSelectedItem() != null && compare2.getSelectedItem() != null) {
-                makeComparison((String) compare1.getSelectedItem(), (String) compare2.getSelectedItem());
+            String name1 = (String) compare1.getSelectedItem();
+            String name2 = (String) compare2.getSelectedItem();
+            if (name1 != null && name2 != null) {
+                String resultText = profiles.makeComparison(name1, name2);
+                comparison.setText(resultText);
                 comparison.setVisible(true);
             }
         }

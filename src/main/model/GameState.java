@@ -19,7 +19,7 @@ public class GameState {
     }
 
     // sets up the game environment
-    private void setUp() {
+    public void setUp() {
         piece = new Piece(WIDTH / 2, 0);
         platform = new Platform(RND.nextInt(WIDTH), RND.nextInt(GameState.HEIGHT - 200) + 180);
         endedGame = true;
@@ -67,7 +67,9 @@ public class GameState {
     }
 
     public void startGame() {
+        setUp();
         endedGame = false;
+        EventLog.getInstance().logEvent(new Event("Game Started."));
     }
 
     public Piece getPiece() {

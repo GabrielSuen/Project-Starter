@@ -43,3 +43,46 @@ score, their score lights up
 - Be able to view a list of profiles with their high score and name
 - Be able to save the current leaderboard consisting of player names and scores
 - Be able to load the saved leaderboard from file
+
+***<u> Phase 4: Task 2 </u>***
+
+Sun Apr 07 16:13:35 PDT 2024 \
+Game Started.\
+Sun Apr 07 16:13:48 PDT 2024\
+Profile Added. \
+Sun Apr 07 16:13:57 PDT 2024 \
+Profile Added. \
+Sun Apr 07 16:13:58 PDT 2024 \
+Profiles Shown. \
+Sun Apr 07 16:14:04 PDT 2024 \
+Challenger Set. \
+Sun Apr 07 16:14:22 PDT 2024 \
+Challenger Set. \
+Sun Apr 07 16:14:27 PDT 2024 \
+ProfilesCompared. 
+
+***<u> Phase 4: Task 3 </u>***
+
+Upon creating the UML Diagram I realised that there were a few places
+my code could be improved had I kept my mind open to abstraction. 
+I first noticed this in my handling of the profiles or player ID's.
+The MenuPanel aspect of my UI ended up being tightly related to the
+fields in the ProfileManager class. Additionally, it used many of the
+methods implemented in the ProfileManager class. In hindsight, I think
+it would make sense to have the MenuPanel class extend the ProfileManager
+class so that it would have direct access to those fields and methods.
+Another potential problem I noticed with my design is that the association 
+between GamePanel and MenuPanel is actually unnecessary given the presence
+of my AppFull class which combines the two into one JFrame. The only
+use of the association is for a single method which could have easily
+been implemented in AppFull or even MenuPanel itself. 
+
+Finally, the last improvement I would make would be implementing the
+singleton pattern into the ProfileManager class. I noticed that I 
+often had problems while designing other classes which depended on 
+ProfileManager, that it would often not reference the correct
+instantiation of the current ProfileManager I needed. In reality, I only 
+needed one instance of ProfileManager at any given time since all 
+classes had to reference the same ProfileManager. Implementing the 
+singleton pattern would be pretty seamless and applicable in this situation
+and it would also alleviate some headache when designing other classes.

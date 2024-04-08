@@ -1,7 +1,6 @@
 package ui;
 
 
-import com.googlecode.lanterna.terminal.Terminal;
 import model.GameState;
 import model.Piece;
 import model.Platform;
@@ -12,15 +11,15 @@ import javax.swing.*;
 import java.awt.event.*;
 
 // Represents the panel where the game will be played/displayed
-public class TerminalGame extends JPanel implements KeyListener {
+public class GamePanel extends JPanel implements KeyListener {
 
     private GameState gameState;
     private JLabel gameOverLbl;
     private JLabel challengeResults;
-    private TerminalMenu menu;
+    private MenuPanel menu;
 
     // Constructor holds the labels associated with the game
-    public TerminalGame(TerminalMenu m) {
+    public GamePanel(MenuPanel m) {
         menu = m;
         gameOverLbl = new JLabel();
         gameOverLbl.setText("GAME OVER");
@@ -102,6 +101,8 @@ public class TerminalGame extends JPanel implements KeyListener {
 
     // starts the game
     public void start() {
+        gameOverLbl.setVisible(false);
+        challengeResults.setVisible(false);
         gameState.startGame();
     }
 

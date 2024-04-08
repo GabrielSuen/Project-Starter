@@ -1,13 +1,10 @@
 package ui;
 
 import model.GameState;
-import model.Profile;
 
 import javax.swing.*;
 import javax.swing.JPanel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ScorePanel extends JPanel {
 
@@ -15,7 +12,7 @@ public class ScorePanel extends JPanel {
     private GameState game;
 
     // Represents the panel which in which the score is displayed
-    public ScorePanel(GameState g, TerminalMenu m) {
+    public ScorePanel(GameState g) {
 
         setLayout(new BorderLayout());
         game = g;

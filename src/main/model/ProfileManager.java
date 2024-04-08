@@ -24,10 +24,12 @@ public class ProfileManager implements Writable {
     // effects: adds the given profile to list
     public void addProfile(Profile profile) {
         profiles.add(profile);
+        EventLog.getInstance().logEvent(new Event("Profile Added."));
     }
 
 
     public List<Profile> getProfiles() {
+        EventLog.getInstance().logEvent(new Event("Profiles Shown."));
         return profiles;
     }
 
@@ -51,7 +53,33 @@ public class ProfileManager implements Writable {
         for (Profile p : profiles) {
             if (p.getName().equals(name)) {
                 challenger = p;
+                EventLog.getInstance().logEvent(new Event("Challenger Set."));
             }
+        }
+    }
+
+    // effects: displays a different message depending on the scores of the profiles
+    public String makeComparison(String n1, String n2) {
+        Profile p1 = null;
+        Profile p2 = null;
+        for (Profile p : profiles) {
+            if (n1.equals(p.getName())) {
+                p1 = p;
+            }
+            if (n2.equals(p.getName())) {
+                p2 = p;
+            }
+        }
+        EventLog.getInstance().logEvent(new Event("ProfilesCompared."));
+        if (p2.getScore() < (p1.getScore() - 2)) {
+            //System.out.println("Player 2's got a ways to go!");
+            return "Player 2's got a ways to go!";
+        } else if (p2.getScore() > (p1.getScore() + 2)) {
+            //System.out.println("Player 2's leagues ahead!");
+            return "Player 2's leagues ahead!";
+        } else {
+            //System.out.println("They're neck and neck!");
+            return "They're neck and neck!";
         }
     }
 
